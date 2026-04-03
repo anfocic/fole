@@ -1,16 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">Andrej Focic social card</title>
-  <desc id="desc">Social sharing card for the Andrej Focic site.</desc>
+  <desc id="desc">Social sharing card for fole.dev</desc>
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1a1512" />
-      <stop offset="100%" stop-color="#6f3a22" />
+      <stop offset="0%" stop-color="#0a1e36" />
+      <stop offset="100%" stop-color="#0e2a47" />
     </linearGradient>
   </defs>
-  <rect width="1200" height="630" fill="url(#bg)" rx="36" />
-  <rect x="64" y="64" width="1072" height="502" rx="28" fill="rgba(22,16,13,0.24)" stroke="rgba(255,244,232,0.16)" />
-  <text x="104" y="190" fill="#f0a979" font-size="34" font-family="SFMono-Regular, Menlo, Monaco, Consolas, monospace">fole.dev</text>
-  <text x="104" y="308" fill="#f7efe6" font-size="84" font-weight="700" font-family="Inter, Segoe UI, Arial, sans-serif">Andrej Focic</text>
-  <text x="104" y="394" fill="#ead8c6" font-size="40" font-family="Inter, Segoe UI, Arial, sans-serif">Thoughts on development, building, and more.</text>
-  <text x="104" y="500" fill="#d8bfaa" font-size="30" font-family="Inter, Segoe UI, Arial, sans-serif">Fast personal site. Static blog. Lightweight analytics.</text>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <text x="100" y="200" fill="#9aa1b3" font-size="32" font-family="SF Mono, Menlo, Monaco, Consolas, monospace">fole.dev</text>
+  <text x="100" y="310" fill="#e2e6ef" font-size="80" font-weight="700" font-family="system-ui, -apple-system, sans-serif">Andrej Focic</text>
+  <text x="100" y="390" fill="#9aa1b3" font-size="36" font-family="system-ui, -apple-system, sans-serif">Solo founder, full-stack everything.</text>
 </svg>
