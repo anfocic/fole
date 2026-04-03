@@ -1,5 +1,4 @@
 ---
-import { Icon } from "astro-icon/components";
 import SocialLinks from "./SocialLinks.astro";
 import { heroSocialLinkIds } from "../data/social-links";
 ---
@@ -20,7 +19,6 @@ import { heroSocialLinkIds } from "../data/social-links";
   <div class="copy">
     <h1>
       Hey, I'm <span class="accent">Andrej</span>
-      <Icon name="tabler:rss" class="name-mark" aria-hidden="true" />
     </h1>
 
     <p class="role">Full-stack engineer at <a href="https://intrebit.com" target="_blank" rel="noopener noreferrer">Intrebit</a>, based in Dublin.</p>
@@ -77,15 +75,6 @@ import { heroSocialLinkIds } from "../data/social-links";
     color: var(--accent);
   }
 
-  .name-mark {
-    width: 1.5rem;
-    height: 1.5rem;
-    color: var(--accent);
-    opacity: 0.9;
-    transform-origin: center;
-    animation: name-mark-float 3.8s ease-in-out infinite;
-  }
-
   .role {
     color: var(--text-secondary);
     font-size: 1.1rem;
@@ -102,45 +91,31 @@ import { heroSocialLinkIds } from "../data/social-links";
 
   @media (max-width: 640px) {
     .hero {
-      grid-template-columns: 1fr;
-      justify-items: start;
-      gap: 1.5rem;
+      grid-template-columns: 100px 1fr;
+      gap: 1.25rem;
       padding: 2.5rem 0 2rem;
     }
 
-    h1 {
-      font-size: 2.25rem;
+    .portrait-col {
+      gap: 0;
     }
 
-    .name-mark {
-      width: 1.2rem;
-      height: 1.2rem;
+    h1 {
+      font-size: 1.75rem;
     }
 
     .portrait {
-      width: 180px;
+      width: 100px;
     }
 
     .intro {
       max-width: none;
+      font-size: 0.95rem;
+    }
+
+    .role {
+      font-size: 0.95rem;
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .name-mark {
-      animation: none;
-    }
-  }
-
-  @keyframes name-mark-float {
-    0%, 100% {
-      transform: translateY(0) rotate(0deg);
-      opacity: 0.82;
-    }
-
-    50% {
-      transform: translateY(-1px) rotate(7deg);
-      opacity: 1;
-    }
-  }
 </style>

@@ -201,6 +201,6 @@ svg {
   h1 { font-size: 2rem; }
   h2 { font-size: 1.5rem; }
   :root {
-    --content-padding: 0.95rem;
+    --content-padding: 1.25rem;
   }
 }
