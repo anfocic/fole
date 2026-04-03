@@ -3,7 +3,8 @@ import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PostAnalytics from "../../components/PostAnalytics.astro";
 import SeriesNav from "../../components/SeriesNav.astro";
-import { getBlogPosts, getPostReadingTime, getPostSlug, getSeriesPosts } from "../../lib/blog";
+import JsonLd from "../../components/JsonLd.astro";
+import { getBlogPosts, getPostReadingTime, getPostSlug, getPostUrl, getSeriesPosts } from "../../lib/blog";
 
 export async function getStaticPaths() {
   const posts = getBlogPosts(await getCollection("blog"), {
@@ -39,6 +40,15 @@ const isDraftPreview = import.meta.env.DEV && post.data.draft;
   type="article"
 >
   <Fragment slot="head">
+    <JsonLd
+      title={post.data.title}
+      description={post.data.description}
+      date={post.data.date}
+      updatedDate={post.data.updatedDate}
+      author={post.data.author}
+      url={getPostUrl(post, Astro.site ?? new URL("https://fole.dev"))}
+      image={post.data.coverImage}
+    />
     <meta property="article:published_time" content={post.data.date.toISOString()} />
     {post.data.updatedDate && (
       <meta property="article:modified_time" content={post.data.updatedDate.toISOString()} />
