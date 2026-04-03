@@ -48,7 +48,7 @@ export const GET: APIRoute = async ({ site }) => {
     '<rss version="2.0">',
     "  <channel>",
     "    <title>Andrej Focic</title>",
-    "    <description>Thoughts on development, building, and more.</description>",
+    "    <description>Solo founder, full-stack everything. Writing about building products, agentic engineering, and whatever else I break along the way.</description>",
     `    <link>${new URL("/", site).toString()}</link>`,
     `    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>`,
     "    <language>en</language>",
