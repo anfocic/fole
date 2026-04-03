@@ -1,11 +1,13 @@
 ---
-title: "What If Your AI Actually Remembered You?"
+title: "The Soul Files: What If Your AI Actually Remembered You?"
 description: "I built a personal AI companion that remembers who I am, texts me in the morning, and talks like a friend -- not a help desk."
 date: 2026-04-03
 tags:
   - ai
   - side-project
   - companion
+series: "The Soul Files"
+seriesOrder: 1
 ---
 
 Every AI I've used has the same problem: it forgets me the moment I close the tab.

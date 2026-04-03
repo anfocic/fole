@@ -8,9 +8,11 @@ interface Props {
   slug: string;
   readingTime: number;
   draft?: boolean;
+  series?: string;
+  seriesOrder?: number;
 }
 
-const { title, date, description, slug, readingTime, draft = false } = Astro.props;
+const { title, date, description, slug, readingTime, draft = false, series, seriesOrder } = Astro.props;
 
 const formatted = date.toLocaleDateString("en-US", {
   year: "numeric",
@@ -21,6 +23,7 @@ const formatted = date.toLocaleDateString("en-US", {
 
 <article class="card">
   <a href={`/blog/${slug}/`}>
+    {series && <span class="series-tag">{series}{seriesOrder ? ` #${seriesOrder}` : ""}</span>}
     <h3>
       {title}
       {draft && <span class="badge">Draft</span>}
@@ -100,6 +103,15 @@ const formatted = date.toLocaleDateString("en-US", {
     font-weight: 600;
     letter-spacing: 0.02em;
     vertical-align: middle;
+  }
+
+  .series-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+    margin-bottom: 0.35rem;
   }
 
   p {

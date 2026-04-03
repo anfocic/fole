@@ -38,3 +38,9 @@ export function getReadingTime(text: string, wordsPerMinute = 200) {
 export function getPostReadingTime(post: BlogPost) {
   return getReadingTime(post.body ?? "");
 }
+
+export function getSeriesPosts(posts: BlogPost[], seriesName: string) {
+  return posts
+    .filter((p) => p.data.series === seriesName && !p.data.draft)
+    .sort((a, b) => (a.data.seriesOrder ?? 0) - (b.data.seriesOrder ?? 0));
+}

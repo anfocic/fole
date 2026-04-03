@@ -2,7 +2,8 @@
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PostAnalytics from "../../components/PostAnalytics.astro";
-import { getBlogPosts, getPostReadingTime, getPostSlug } from "../../lib/blog";
+import SeriesNav from "../../components/SeriesNav.astro";
+import { getBlogPosts, getPostReadingTime, getPostSlug, getSeriesPosts } from "../../lib/blog";
 
 export async function getStaticPaths() {
   const posts = getBlogPosts(await getCollection("blog"), {
@@ -16,6 +17,9 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+const allPosts = getBlogPosts(await getCollection("blog"), { includeDrafts: import.meta.env.DEV });
+const seriesPosts = post.data.series ? getSeriesPosts(allPosts, post.data.series) : [];
 
 const formatted = post.data.date.toLocaleDateString("en-US", {
   year: "numeric",
@@ -55,6 +59,9 @@ const isDraftPreview = import.meta.env.DEV && post.data.draft;
         <span>{readingTime} min read</span>
       </div>
     </header>
+    {seriesPosts.length > 1 && (
+      <SeriesNav series={post.data.series!} currentSlug={getPostSlug(post)} posts={seriesPosts} />
+    )}
     <div class="content" data-post-content>
       <Content />
     </div>
