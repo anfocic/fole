@@ -1,0 +1,36 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  updatedDate?: Date;
+  author: string;
+  url: string;
+  image?: string;
+}
+
+const { title, description, date, updatedDate, author, url, image } = Astro.props;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: title,
+  description,
+  author: {
+    "@type": "Person",
+    name: author,
+    url: "https://fole.dev",
+  },
+  datePublished: date.toISOString(),
+  ...(updatedDate && { dateModified: updatedDate.toISOString() }),
+  ...(image && { image }),
+  url,
+  publisher: {
+    "@type": "Person",
+    name: "Andrej Focic",
+    url: "https://fole.dev",
+  },
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
