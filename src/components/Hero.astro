@@ -14,7 +14,9 @@ import { heroSocialLinkIds } from "../data/social-links";
         height="280"
       />
     </div>
-    <SocialLinks ids={heroSocialLinkIds} variant="hero" />
+    <div class="socials-desktop">
+      <SocialLinks ids={heroSocialLinkIds} variant="hero" />
+    </div>
   </div>
   <div class="copy">
     <h1>
@@ -25,6 +27,9 @@ import { heroSocialLinkIds } from "../data/social-links";
     <p class="intro">
       Building things that work. Breaking things that don't.
     </p>
+  </div>
+  <div class="socials-mobile">
+    <SocialLinks ids={heroSocialLinkIds} variant="hero" />
   </div>
 </section>
 
@@ -63,6 +68,10 @@ import { heroSocialLinkIds } from "../data/social-links";
     min-width: 0;
   }
 
+  .socials-mobile {
+    display: none;
+  }
+
   h1 {
     display: inline-flex;
     align-items: center;
@@ -98,6 +107,15 @@ import { heroSocialLinkIds } from "../data/social-links";
 
     .portrait-col {
       gap: 0;
+    }
+
+    .socials-desktop {
+      display: none;
+    }
+
+    .socials-mobile {
+      display: block;
+      grid-column: 1 / -1;
     }
 
     h1 {
