@@ -1,0 +1,119 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  title: string;
+  date: Date;
+  description: string;
+  slug: string;
+  readingTime: number;
+  draft?: boolean;
+}
+
+const { title, date, description, slug, readingTime, draft = false } = Astro.props;
+
+const formatted = date.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "short",
+  day: "numeric",
+});
+---
+
+<article class="card">
+  <a href={`/blog/${slug}/`}>
+    <h3>
+      {title}
+      {draft && <span class="badge">Draft</span>}
+    </h3>
+    <div class="meta">
+      <span class="date">
+        <Icon name="tabler:calendar-event" class="icon" aria-hidden="true" />
+        <time datetime={date.toISOString()}>{formatted}</time>
+      </span>
+      <span class="sep">&middot;</span>
+      <span>{readingTime} min read</span>
+    </div>
+    <p>{description}</p>
+  </a>
+</article>
+
+<style>
+  .card {
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .card:first-child {
+    padding-top: 0;
+  }
+
+  a {
+    color: inherit;
+    display: block;
+  }
+
+  a:hover h3 {
+    color: var(--accent);
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    margin: 0 0 0.35rem;
+    transition: color 0.2s;
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 0.85rem;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+  }
+
+  .date {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .icon {
+    width: 0.95rem;
+    height: 0.95rem;
+    flex: 0 0 auto;
+  }
+
+  .sep {
+    font-family: var(--font-sans);
+    line-height: 1;
+  }
+
+  .badge {
+    display: inline-flex;
+    margin-left: 0.65rem;
+    padding: 0.12rem 0.45rem;
+    border: 1px solid color-mix(in srgb, var(--accent) 28%, var(--border));
+    border-radius: 999px;
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    vertical-align: middle;
+  }
+
+  p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    margin: 0;
+    line-height: 1.6;
+    max-width: 50ch;
+  }
+
+  @media (max-width: 640px) {
+    .meta {
+      flex-wrap: wrap;
+      row-gap: 0.2rem;
+    }
+  }
+</style>

@@ -1,0 +1,53 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogCard from "../../components/BlogCard.astro";
+import { getBlogPosts, getPostReadingTime, getPostSlug } from "../../lib/blog";
+
+const includeDrafts = import.meta.env.DEV;
+const posts = getBlogPosts(await getCollection("blog"), { includeDrafts });
+const draftCount = posts.filter((post) => post.data.draft).length;
+---
+
+<BaseLayout title="Blog — Andrej Focic" description="Thoughts on development, building, and more.">
+  <section class="blog-listing">
+    <h1>Blog</h1>
+    {includeDrafts && draftCount > 0 && (
+      <p class="draft-note">
+        Showing {draftCount} draft{draftCount === 1 ? "" : "s"} locally only.
+      </p>
+    )}
+    {posts.length === 0 ? (
+      <p class="empty">No posts yet. Check back soon!</p>
+    ) : (
+      <div class="posts">
+        {posts.map((post) => (
+          <BlogCard
+            title={post.data.title}
+            date={post.data.date}
+            description={post.data.description}
+            slug={getPostSlug(post)}
+            readingTime={getPostReadingTime(post)}
+            draft={post.data.draft}
+          />
+        ))}
+      </div>
+    )}
+  </section>
+</BaseLayout>
+
+<style>
+  h1 {
+    margin-bottom: 2rem;
+  }
+
+  .empty {
+    color: var(--text-secondary);
+  }
+
+  .draft-note {
+    margin-bottom: 1.5rem;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+</style>

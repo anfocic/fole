@@ -1,0 +1,124 @@
+---
+import { ANALYTICS_EVENTS } from "../lib/analytics";
+
+interface Props {
+  slug: string;
+  readingTime: number;
+}
+
+const { slug, readingTime } = Astro.props;
+const analyticsEnabled = Boolean(import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN);
+const engagedSeconds = Math.min(90, Math.max(15, readingTime * 10));
+const readSeconds = Math.min(180, Math.max(30, readingTime * 20));
+---
+
+{
+  analyticsEnabled && (
+    <script
+      is:inline
+      define:vars={{
+        slug,
+        readingTime,
+        engagedSeconds,
+        readSeconds,
+        blogPostEngagedEvent: ANALYTICS_EVENTS.blogPostEngaged,
+        blogPostReadEvent: ANALYTICS_EVENTS.blogPostRead,
+      }}
+    >
+      (() => {
+        const article = document.querySelector("[data-post-content]");
+        if (!article) {
+          return;
+        }
+
+        let visibleMs = 0;
+        let maxProgress = 0;
+        let lastVisibleAt = document.visibilityState === "visible" ? Date.now() : null;
+        let engagedSent = false;
+        let readSent = false;
+
+        const sendEvent = (name) => {
+          if (typeof window.plausible === "function") {
+            window.plausible(name, {
+              props: {
+                slug,
+                reading_time_minutes: String(readingTime),
+              },
+            });
+          }
+        };
+
+        const captureVisibleTime = () => {
+          if (lastVisibleAt === null) {
+            return;
+          }
+
+          const now = Date.now();
+          visibleMs += now - lastVisibleAt;
+          lastVisibleAt = now;
+        };
+
+        const getProgress = () => {
+          const rect = article.getBoundingClientRect();
+          const articleTop = rect.top + window.scrollY;
+          const articleHeight = Math.max(article.scrollHeight, article.clientHeight, 1);
+          const viewportBottom = window.scrollY + window.innerHeight;
+
+          return Math.max(0, Math.min(1, (viewportBottom - articleTop) / articleHeight));
+        };
+
+        const maybeTrack = () => {
+          captureVisibleTime();
+          maxProgress = Math.max(maxProgress, getProgress());
+
+          if (!engagedSent && visibleMs >= engagedSeconds * 1000 && maxProgress >= 0.5) {
+            engagedSent = true;
+            sendEvent(blogPostEngagedEvent);
+          }
+
+          if (!readSent && visibleMs >= readSeconds * 1000 && maxProgress >= 0.9) {
+            readSent = true;
+            sendEvent(blogPostReadEvent);
+            cleanup();
+          }
+        };
+
+        const onScroll = () => {
+          maxProgress = Math.max(maxProgress, getProgress());
+          maybeTrack();
+        };
+
+        const onVisibilityChange = () => {
+          if (document.visibilityState === "hidden") {
+            captureVisibleTime();
+            lastVisibleAt = null;
+            maybeTrack();
+            return;
+          }
+
+          lastVisibleAt = Date.now();
+        };
+
+        const onPageHide = () => {
+          maybeTrack();
+          cleanup();
+        };
+
+        const cleanup = () => {
+          window.removeEventListener("scroll", onScroll);
+          window.removeEventListener("pagehide", onPageHide);
+          document.removeEventListener("visibilitychange", onVisibilityChange);
+          window.clearInterval(intervalId);
+        };
+
+        const intervalId = window.setInterval(maybeTrack, 5000);
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("pagehide", onPageHide);
+        document.addEventListener("visibilitychange", onVisibilityChange);
+
+        maybeTrack();
+      })();
+    </script>
+  )
+}

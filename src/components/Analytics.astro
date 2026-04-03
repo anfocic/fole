@@ -1,0 +1,86 @@
+---
+import { ANALYTICS_EVENTS } from "../lib/analytics";
+
+const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
+const plausibleApiHost = (import.meta.env.PUBLIC_PLAUSIBLE_API_HOST || "https://plausible.io").replace(
+  /\/$/,
+  "",
+);
+---
+
+{
+  plausibleDomain && (
+    <>
+      <script is:inline>
+        window.plausible =
+          window.plausible ||
+          function () {
+            (window.plausible.q = window.plausible.q || []).push(arguments);
+          };
+      </script>
+      <script is:inline define:vars={{ profileLinkClickEvent: ANALYTICS_EVENTS.profileLinkClick }}>
+        (() => {
+          const sendProfileLinkEvent = (anchor, callback) => {
+            const link = anchor.dataset.analyticsLink;
+            const location = anchor.dataset.analyticsLocation;
+
+            if (typeof window.plausible !== "function" || !link || !location) {
+              callback?.();
+              return;
+            }
+
+            window.plausible(profileLinkClickEvent, {
+              props: { link, location },
+              callback,
+            });
+          };
+
+          document.addEventListener("click", (event) => {
+            const target = event.target;
+            if (!(target instanceof Element)) {
+              return;
+            }
+
+            const anchor = target.closest("[data-analytics-link]");
+            if (!(anchor instanceof HTMLAnchorElement)) {
+              return;
+            }
+
+            const shouldLetBrowserHandle =
+              anchor.target === "_blank" ||
+              event.metaKey ||
+              event.ctrlKey ||
+              event.shiftKey ||
+              event.altKey ||
+              event.button !== 0;
+
+            if (shouldLetBrowserHandle) {
+              sendProfileLinkEvent(anchor);
+              return;
+            }
+
+            event.preventDefault();
+
+            let completed = false;
+            const navigate = () => {
+              if (completed) {
+                return;
+              }
+
+              completed = true;
+              window.location.href = anchor.href;
+            };
+
+            sendProfileLinkEvent(anchor, navigate);
+            window.setTimeout(navigate, 300);
+          });
+        })();
+      </script>
+      <script
+        defer
+        data-domain={plausibleDomain}
+        src={`${plausibleApiHost}/js/script.js`}
+      ></script>
+    </>
+  )
+}

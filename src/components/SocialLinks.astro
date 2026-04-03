@@ -1,0 +1,126 @@
+---
+import { Icon } from "astro-icon/components";
+import {
+  getSocialLinks,
+  type SocialLinkId,
+} from "../data/social-links";
+
+interface Props {
+  ids: SocialLinkId[];
+  variant?: "hero" | "footer";
+}
+
+const { ids, variant = "hero" } = Astro.props;
+const links = getSocialLinks(ids);
+---
+
+<ul class:list={["social-links", `social-links--${variant}`]} aria-label="Profile links">
+  {links.map((link) => (
+    <li>
+      <a
+        href={link.href}
+        target={link.external ? "_blank" : undefined}
+        rel={link.external ? "noopener noreferrer" : undefined}
+        data-analytics-link={link.trackClicks ? link.id : undefined}
+        data-analytics-location={link.trackClicks ? variant : undefined}
+        aria-label={link.label}
+        title={link.label}
+      >
+        <Icon name={link.icon} class="icon" aria-hidden="true" />
+        <span class="label-hidden">{link.label}</span>
+      </a>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem 1.35rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .social-links a {
+    display: inline-flex;
+    align-items: center;
+    color: var(--text-secondary);
+    line-height: 1;
+    padding: 0.2rem;
+    transition: color 0.28s ease, border-color 0.28s ease, transform 0.28s ease;
+  }
+
+  .social-links a:hover {
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+
+  .icon {
+    width: 1.56rem;
+    height: 1.56rem;
+    flex: 0 0 auto;
+    transition: transform 0.28s ease, color 0.28s ease;
+  }
+
+  .social-links a:hover .icon {
+    animation: wiggle 0.5s ease;
+  }
+
+  @keyframes wiggle {
+    0% { transform: rotate(0deg); }
+    20% { transform: rotate(-14deg); }
+    40% { transform: rotate(10deg); }
+    60% { transform: rotate(-6deg); }
+    80% { transform: rotate(3deg); }
+    100% { transform: rotate(0deg); }
+  }
+
+  .social-links--hero {
+    align-items: center;
+  }
+
+  .social-links--hero {
+    gap: 0.7rem 0.9rem;
+  }
+
+  .social-links--hero a {
+    padding: 0.25rem;
+  }
+
+  .social-links--footer {
+    justify-content: center;
+    gap: 0.6rem 0.9rem;
+  }
+
+  .social-links--footer .icon {
+    width: 1.56rem;
+    height: 1.56rem;
+  }
+
+  .label-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @media (max-width: 640px) {
+    .social-links {
+      gap: 0.75rem 1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .social-links a,
+    .icon {
+      transition: none;
+    }
+  }
+</style>

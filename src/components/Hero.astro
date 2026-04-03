@@ -1,0 +1,146 @@
+---
+import { Icon } from "astro-icon/components";
+import SocialLinks from "./SocialLinks.astro";
+import { heroSocialLinkIds } from "../data/social-links";
+---
+
+<section class="hero">
+  <div class="portrait-col">
+    <div class="portrait-wrap">
+      <img
+        class="portrait"
+        src="/andrej.jpg"
+        alt="Andrej Focic"
+        width="280"
+        height="280"
+      />
+    </div>
+    <SocialLinks ids={heroSocialLinkIds} variant="hero" />
+  </div>
+  <div class="copy">
+    <h1>
+      Hey, I'm <span class="accent">Andrej</span>
+      <Icon name="tabler:rss" class="name-mark" aria-hidden="true" />
+    </h1>
+
+    <p class="role">Full-stack engineer at <a href="https://intrebit.com" target="_blank" rel="noopener noreferrer">Intrebit</a>, based in Dublin.</p>
+    <p class="intro">
+      Building things that work. Breaking things that don't.
+    </p>
+  </div>
+</section>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(180px, 240px) 1fr;
+    align-items: center;
+    gap: 8rem;
+    padding: 3.5rem 0 0;
+  }
+
+  .portrait-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: -1rem;
+  }
+
+  .portrait-wrap {
+    display: flex;
+    justify-content: center;
+  }
+
+  .portrait {
+    width: min(100%, 240px);
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--border) 82%, var(--accent));
+    background: var(--bg-secondary);
+  }
+
+  .copy {
+    min-width: 0;
+  }
+
+  h1 {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .accent {
+    color: var(--accent);
+  }
+
+  .name-mark {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--accent);
+    opacity: 0.9;
+    transform-origin: center;
+    animation: name-mark-float 3.8s ease-in-out infinite;
+  }
+
+  .role {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .intro {
+    max-width: 30ch;
+    margin-bottom: 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 1.05rem;
+    line-height: 1.65;
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      grid-template-columns: 1fr;
+      justify-items: start;
+      gap: 1.5rem;
+      padding: 2.5rem 0 2rem;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+    }
+
+    .name-mark {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+
+    .portrait {
+      width: 180px;
+    }
+
+    .intro {
+      max-width: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .name-mark {
+      animation: none;
+    }
+  }
+
+  @keyframes name-mark-float {
+    0%, 100% {
+      transform: translateY(0) rotate(0deg);
+      opacity: 0.82;
+    }
+
+    50% {
+      transform: translateY(-1px) rotate(7deg);
+      opacity: 1;
+    }
+  }
+</style>

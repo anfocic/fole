@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="560" viewBox="0 0 560 560" role="img" aria-labelledby="title desc">
+  <title id="title">Profile photo placeholder</title>
+  <desc id="desc">Circular placeholder image for Andrej Focic.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#eadfce" />
+      <stop offset="100%" stop-color="#d7b392" />
+    </linearGradient>
+    <linearGradient id="darkBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1b1512" />
+      <stop offset="100%" stop-color="#5d3320" />
+    </linearGradient>
+    <clipPath id="clip">
+      <circle cx="280" cy="280" r="280" />
+    </clipPath>
+  </defs>
+  <g clip-path="url(#clip)">
+    <rect width="560" height="560" fill="url(#bg)" />
+    <rect width="560" height="560" fill="url(#darkBg)" opacity="0" />
+    <circle cx="280" cy="232" r="110" fill="#9a6e58" />
+    <path d="M126 520c18-82 84-140 154-140 77 0 143 58 160 140Z" fill="#7f5947" />
+    <circle cx="280" cy="280" r="280" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="4" />
+    <text x="280" y="486" text-anchor="middle" fill="#ffffff" font-size="84" font-weight="700" font-family="SFMono-Regular, Menlo, Monaco, Consolas, monospace">AF</text>
+  </g>
+</svg>

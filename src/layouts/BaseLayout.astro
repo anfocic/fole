@@ -1,0 +1,79 @@
+---
+import "@fontsource-variable/space-grotesk";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Analytics from "../components/Analytics.astro";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  type?: "website" | "article";
+}
+
+const {
+  title,
+  description = "Andrej Focic — Developer, builder, thinker.",
+  image = "/social-card.svg",
+  canonical,
+  type = "website",
+} = Astro.props;
+
+const site = Astro.site ?? new URL("https://fole.dev");
+const canonicalUrl = canonical
+  ? new URL(canonical, site).toString()
+  : new URL(Astro.url.pathname, site).toString();
+const socialImage = image ? new URL(image, site).toString() : undefined;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta property="og:site_name" content="Andrej Focic" />
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta name="twitter:card" content={socialImage ? "summary_large_image" : "summary"} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {socialImage && <meta property="og:image" content={socialImage} />}
+    {socialImage && <meta name="twitter:image" content={socialImage} />}
+    <title>{title}</title>
+    <slot name="head" />
+
+    <!-- Prevent flash of wrong theme -->
+    <script is:inline>
+      (function () {
+        const saved = localStorage.getItem("theme");
+        if (saved) {
+          document.documentElement.setAttribute("data-theme", saved);
+        }
+      })();
+    </script>
+    <Analytics />
+  </head>
+  <body>
+    <Header />
+    <main class="container">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  main {
+    flex: 1;
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+  }
+</style>

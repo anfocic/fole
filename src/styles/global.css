@@ -1,0 +1,206 @@
+/* ===== CSS Reset ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== CSS Variables ===== */
+:root {
+  --font-sans: "Space Grotesk Variable", "Space Grotesk", -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+    "Helvetica Neue", sans-serif;
+  --font-mono: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", Menlo,
+    Monaco, Consolas, monospace;
+
+  --max-width: 864px;
+  --content-padding: 1.2rem;
+
+  /* Light mode (default) */
+  --bg: #f6f1e8;
+  --bg-secondary: #ece4d7;
+  --text: #0e2a47;
+  --text-secondary: #3a5672;
+  --accent: #0e2a47;
+  --accent-hover: #071826;
+  --border: #ddd1bf;
+  --code-bg: #ede5da;
+}
+
+/* Dark mode via OS preference */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #151921;
+    --bg-secondary: #1c2130;
+    --text: #e2e6ef;
+    --text-secondary: #9aa1b3;
+    --accent: #e08a57;
+    --accent-hover: #f0a979;
+    --border: #2a3040;
+    --code-bg: #1a1f2d;
+  }
+}
+
+/* Dark mode via manual toggle */
+[data-theme="dark"] {
+  --bg: #151921;
+  --bg-secondary: #1c2130;
+  --text: #e2e6ef;
+  --text-secondary: #9aa1b3;
+  --accent: #e08a57;
+  --accent-hover: #f0a979;
+  --border: #2a3040;
+  --code-bg: #1a1f2d;
+}
+
+/* ===== Base Styles ===== */
+html {
+  font-family: var(--font-sans);
+  color: var(--text);
+  background-color: var(--bg);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color-scheme: light dark;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-weight: 450;
+}
+
+/* ===== Typography ===== */
+h1, h2, h3, h4 {
+  line-height: 1.3;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.25rem; }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+code {
+  font-family: var(--font-mono);
+  background: var(--code-bg);
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+pre {
+  background: var(--code-bg);
+  padding: 1.25rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
+}
+
+blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1rem;
+  color: var(--text-secondary);
+  margin: 1.5rem 0;
+}
+
+ul, ol {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+li {
+  margin-bottom: 0.25rem;
+}
+
+/* ===== Utility ===== */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--content-padding);
+  width: 100%;
+}
+
+/* ===== Transitions ===== */
+html {
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+body,
+header,
+footer,
+main,
+nav,
+section,
+article,
+aside,
+div,
+p,
+h1, h2, h3, h4, h5, h6,
+a,
+span,
+li, ul, ol,
+blockquote,
+code, pre,
+hr,
+img,
+button,
+input,
+textarea,
+svg {
+  transition:
+    background-color 0.35s ease,
+    color 0.35s ease,
+    border-color 0.35s ease,
+    fill 0.35s ease,
+    stroke 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.5rem; }
+  :root {
+    --content-padding: 0.95rem;
+  }
+}
