@@ -14,9 +14,6 @@ import { heroSocialLinkIds } from "../data/social-links";
         height="280"
       />
     </div>
-    <div class="socials-desktop">
-      <SocialLinks ids={heroSocialLinkIds} variant="hero" />
-    </div>
   </div>
   <div class="copy">
     <h1>
@@ -27,6 +24,9 @@ import { heroSocialLinkIds } from "../data/social-links";
     <p class="intro">
       Building things that work. Breaking things that don't.
     </p>
+    <div class="socials-desktop">
+      <SocialLinks ids={heroSocialLinkIds} variant="hero" />
+    </div>
   </div>
   <div class="socials-mobile">
     <SocialLinks ids={heroSocialLinkIds} variant="hero" />
@@ -39,7 +39,7 @@ import { heroSocialLinkIds } from "../data/social-links";
     grid-template-columns: minmax(180px, 240px) 1fr;
     align-items: center;
     gap: 8rem;
-    padding: 3.5rem 0 0;
+    padding: 3.5rem 0 0.5rem;
   }
 
   .portrait-col {
