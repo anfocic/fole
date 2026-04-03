@@ -4,31 +4,23 @@ import { heroSocialLinkIds } from "../data/social-links";
 ---
 
 <section class="hero">
-  <div class="portrait-col">
-    <div class="portrait-wrap">
-      <img
-        class="portrait"
-        src="/andrej.jpg"
-        alt="Andrej Focic"
-        width="280"
-        height="280"
-      />
-    </div>
+  <div class="portrait-wrap">
+    <img
+      class="portrait"
+      src="/andrej.jpg"
+      alt="Andrej Focic"
+      width="280"
+      height="280"
+    />
   </div>
   <div class="copy">
     <h1>
       Hey, I'm <span class="accent">Andrej</span>
     </h1>
-
     <p class="role">Founder & engineer at <a href="https://intrebit.com" target="_blank" rel="noopener noreferrer">intrebit</a>. Based in Dublin.</p>
     <p class="intro">
       Building things that work. Breaking things that don't.
     </p>
-    <div class="socials-desktop">
-      <SocialLinks ids={heroSocialLinkIds} variant="hero" />
-    </div>
-  </div>
-  <div class="socials-mobile">
     <SocialLinks ids={heroSocialLinkIds} variant="hero" />
   </div>
 </section>
@@ -39,13 +31,7 @@ import { heroSocialLinkIds } from "../data/social-links";
     grid-template-columns: minmax(180px, 240px) 1fr;
     align-items: center;
     gap: 8rem;
-    padding: 3.5rem 0 0.5rem;
-  }
-
-  .portrait-col {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding: 3.5rem 0 0;
   }
 
   .portrait-wrap {
@@ -64,10 +50,6 @@ import { heroSocialLinkIds } from "../data/social-links";
 
   .copy {
     min-width: 0;
-  }
-
-  .socials-mobile {
-    display: none;
   }
 
   h1 {
@@ -99,33 +81,13 @@ import { heroSocialLinkIds } from "../data/social-links";
   @media (max-width: 640px) {
     .hero {
       grid-template-columns: 100px 1fr;
-      align-items: center;
       gap: 1.25rem;
-      padding: 2.5rem 0 2rem;
-    }
-
-    .portrait-col {
-      gap: 0;
-    }
-
-    .socials-desktop {
-      display: none;
-    }
-
-    .socials-mobile {
-      display: flex;
-      justify-content: center;
-      grid-column: 1 / -1;
-    }
-
-    .copy {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      padding: 2.5rem 0 0;
     }
 
     h1 {
       font-size: 1.75rem;
+      margin-bottom: 0.25rem;
     }
 
     .portrait {
@@ -141,5 +103,4 @@ import { heroSocialLinkIds } from "../data/social-links";
       margin-bottom: 0;
     }
   }
-
 </style>
