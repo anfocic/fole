@@ -5,6 +5,21 @@ import About from "../components/About.astro";
 ---
 
 <BaseLayout title="Andrej Focic — Solo founder, full-stack everything.">
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: "Andrej Focic",
+      url: "https://fole.dev",
+      jobTitle: "Founder & Engineer",
+      worksFor: { "@type": "Organization", name: "intrebit", url: "https://intrebit.com" },
+      sameAs: [
+        "https://github.com/anfocic",
+        "https://www.linkedin.com/in/afocic/",
+        "https://dev.to/fole",
+      ],
+    })} />
+  </Fragment>
   <Hero />
   <hr />
   <About />
