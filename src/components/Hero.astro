@@ -101,6 +101,7 @@ import { heroSocialLinkIds } from "../data/social-links";
   @media (max-width: 640px) {
     .hero {
       grid-template-columns: 100px 1fr;
+      align-items: center;
       gap: 1.25rem;
       padding: 2.5rem 0 2rem;
     }
@@ -114,8 +115,15 @@ import { heroSocialLinkIds } from "../data/social-links";
     }
 
     .socials-mobile {
-      display: block;
+      display: flex;
+      justify-content: center;
       grid-column: 1 / -1;
+    }
+
+    .copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     h1 {
@@ -127,12 +135,12 @@ import { heroSocialLinkIds } from "../data/social-links";
     }
 
     .intro {
-      max-width: none;
-      font-size: 0.95rem;
+      display: none;
     }
 
     .role {
       font-size: 0.95rem;
+      margin-bottom: 0;
     }
   }
 
