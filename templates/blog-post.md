@@ -10,6 +10,8 @@ author: "Andrej Focic"
 # slug: {{SLUG}}
 # canonicalURL: https://fole.dev/blog/{{SLUG}}/
 # coverImage: /blog/{{SLUG}}/cover.jpg
+# series: "The Soul Files"
+# seriesOrder: 1
 ---
 
 Start writing here.

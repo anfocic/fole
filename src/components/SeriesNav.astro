@@ -1,0 +1,72 @@
+---
+import type { BlogPost } from "../lib/blog";
+import { getPostSlug } from "../lib/blog";
+
+interface Props {
+  series: string;
+  currentSlug: string;
+  posts: BlogPost[];
+}
+
+const { series, currentSlug, posts } = Astro.props;
+const currentIndex = posts.findIndex((p) => getPostSlug(p) === currentSlug);
+---
+
+<nav class="series-nav" aria-label="Series navigation">
+  <p class="series-label">
+    Part {currentIndex + 1} of {posts.length} in <strong>{series}</strong>
+  </p>
+  <ol class="series-list">
+    {posts.map((post, i) => {
+      const slug = getPostSlug(post);
+      const isCurrent = slug === currentSlug;
+      return (
+        <li class:list={[{ current: isCurrent }]}>
+          {isCurrent ? (
+            <span>{post.data.title}</span>
+          ) : (
+            <a href={`/blog/${slug}/`}>{post.data.title}</a>
+          )}
+        </li>
+      );
+    })}
+  </ol>
+</nav>
+
+<style>
+  .series-nav {
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .series-label {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+  }
+
+  .series-list {
+    padding-left: 1.25rem;
+    margin: 0;
+  }
+
+  .series-list li {
+    font-size: 0.95rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .series-list li.current span {
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .series-list li a {
+    color: var(--text-secondary);
+  }
+
+  .series-list li a:hover {
+    color: var(--accent);
+  }
+</style>
