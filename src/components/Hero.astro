@@ -17,10 +17,8 @@ import { heroSocialLinkIds } from "../data/social-links";
     <h1>
       Hey, I'm <span class="accent">Andrej</span>
     </h1>
-    <p class="role">Founder & engineer at <a href="https://intrebit.com" target="_blank" rel="noopener noreferrer">intrebit</a>. Based in Dublin.</p>
-    <p class="intro">
-      Building things that work. Breaking things that don't.
-    </p>
+    <p class="role">Founder & engineer at <a href="https://intrebit.com" target="_blank" rel="noopener noreferrer">intrebit</a>.</p>
+    <p class="role">Based in Dublin.</p>
     <SocialLinks ids={heroSocialLinkIds} variant="hero" />
   </div>
 </section>
@@ -67,15 +65,11 @@ import { heroSocialLinkIds } from "../data/social-links";
   .role {
     color: var(--text-secondary);
     font-size: 1.1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0;
   }
 
-  .intro {
-    max-width: 30ch;
+  .role:last-of-type {
     margin-bottom: 1.5rem;
-    font-family: var(--font-mono);
-    font-size: 1.05rem;
-    line-height: 1.65;
   }
 
   @media (max-width: 640px) {
@@ -94,13 +88,8 @@ import { heroSocialLinkIds } from "../data/social-links";
       width: 100px;
     }
 
-    .intro {
-      display: none;
-    }
-
     .role {
       font-size: 0.95rem;
-      margin-bottom: 0;
     }
   }
 </style>
