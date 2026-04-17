@@ -1,0 +1,3 @@
+name = "fole"
+pages_build_output_dir = "dist"
+# account_id = ""  # set CLOUDFLARE_ACCOUNT_ID in .env instead
