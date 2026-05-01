@@ -1,4 +1,4 @@
-export type SocialLinkId = "website" | "github" | "linkedin" | "devto" | "email" | "rss";
+export type SocialLinkId = "website" | "github" | "linkedin" | "devto" | "twitter" | "email" | "rss";
 
 export interface SocialLink {
   id: SocialLinkId;
@@ -40,6 +40,14 @@ export const socialLinks: Record<SocialLinkId, SocialLink> = {
     external: true,
     trackClicks: true,
   },
+  twitter: {
+    id: "twitter",
+    label: "Twitter",
+    href: "https://x.com/folezof",
+    icon: "tabler:brand-x",
+    external: true,
+    trackClicks: true,
+  },
   email: {
     id: "email",
     label: "Email",
@@ -57,8 +65,8 @@ export const socialLinks: Record<SocialLinkId, SocialLink> = {
 };
 
 // Toggle which links appear in each part of the site here.
-export const heroSocialLinkIds: SocialLinkId[] = ["github", "linkedin", "devto", "email"];
-export const footerSocialLinkIds: SocialLinkId[] = ["github", "linkedin", "devto", "email", "rss"];
+export const heroSocialLinkIds: SocialLinkId[] = ["github", "linkedin", "twitter", "email"];
+export const footerSocialLinkIds: SocialLinkId[] = ["github", "linkedin", "twitter", "email", "devto"];
 
 export function getSocialLinks(ids: SocialLinkId[]) {
   return ids.map((id) => socialLinks[id]);
