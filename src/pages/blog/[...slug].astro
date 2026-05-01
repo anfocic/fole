@@ -99,7 +99,7 @@ const isDraftPreview = import.meta.env.DEV && post.data.draft;
   }
 
   .back:hover {
-    color: var(--accent);
+    color: var(--link);
   }
 
   h1 {
@@ -119,24 +119,85 @@ const isDraftPreview = import.meta.env.DEV && post.data.draft;
   .content {
     font-size: 1.125rem;
     line-height: 1.8;
+    max-width: 70ch;
   }
 
   .content :global(h2) {
-    margin-top: 2.5rem;
+    margin-top: 5rem;
     margin-bottom: 0.75rem;
   }
 
   .content :global(h3) {
-    margin-top: 2rem;
+    margin-top: 4rem;
     margin-bottom: 0.5rem;
   }
 
   .content :global(p) {
     margin-bottom: 1.25rem;
+    text-wrap: pretty;
   }
 
   .content :global(a) {
-    text-decoration: underline;
+    text-decoration: none;
     text-underline-offset: 2px;
+  }
+
+  .content :global(a:hover) {
+    text-decoration: underline;
+  }
+
+  .content :global(figure) {
+    margin: 2rem 0;
+  }
+
+  .content :global(.drumroll) {
+    text-align: center;
+    margin: 8rem 0;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary);
+  }
+
+  .content :global(figure table) {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+  }
+
+  .content :global(figure th),
+  .content :global(figure td) {
+    padding: 0.7rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .content :global(figure th) {
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+    border-bottom: 2px solid var(--text);
+    font-size: 0.9rem;
+  }
+
+  .content :global(figure td:first-child) {
+    color: var(--text-secondary);
+  }
+
+  .content :global(figure td.win) {
+    font-weight: 700;
+    color: var(--win);
+  }
+
+  .content :global(figure td.lose) {
+    font-weight: 700;
+    color: var(--lose);
+  }
+
+  .content :global(figcaption) {
+    margin-top: 0.6rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-align: center;
+    font-style: italic;
   }
 </style>

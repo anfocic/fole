@@ -27,6 +27,10 @@
   --accent-hover: #071826;
   --border: #ddd1bf;
   --code-bg: #ede5da;
+  --win: #1a7a3a;
+  --lose: #b03a2e;
+  --link: #c4571c;
+  --link-hover: #a64612;
 }
 
 /* Dark mode via OS preference */
@@ -40,6 +44,10 @@
     --accent-hover: #f0a979;
     --border: #2a3040;
     --code-bg: #1a1f2d;
+    --win: #5fcf8a;
+    --lose: #f07a6c;
+    --link: #e08a57;
+    --link-hover: #f0a979;
   }
 }
 
@@ -53,6 +61,10 @@
   --accent-hover: #f0a979;
   --border: #2a3040;
   --code-bg: #1a1f2d;
+  --win: #5fcf8a;
+  --lose: #f07a6c;
+  --link: #e08a57;
+  --link-hover: #f0a979;
 }
 
 /* ===== Base Styles ===== */
@@ -85,15 +97,16 @@ h2 { font-size: 1.75rem; }
 h3 { font-size: 1.25rem; }
 
 a {
-  color: var(--accent);
-  text-decoration: underline;
+  color: var(--link);
+  text-decoration: none;
   text-decoration-thickness: 1.5px;
   text-underline-offset: 2px;
   transition: color 0.2s;
 }
 
 a:hover {
-  color: var(--accent-hover);
+  color: var(--link-hover);
+  text-decoration: underline;
 }
 
 p {
