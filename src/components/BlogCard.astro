@@ -55,8 +55,14 @@ const formatted = date.toLocaleDateString("en-US", {
     display: block;
   }
 
+  a:hover {
+    text-decoration: none;
+  }
+
   a:hover h3 {
-    color: var(--accent);
+    color: var(--link);
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 
   h3 {

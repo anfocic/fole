@@ -2,10 +2,6 @@
 import { ANALYTICS_EVENTS } from "../lib/analytics";
 
 const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
-const plausibleApiHost = (import.meta.env.PUBLIC_PLAUSIBLE_API_HOST || "https://plausible.io").replace(
-  /\/$/,
-  "",
-);
 ---
 
 {
@@ -79,7 +75,8 @@ const plausibleApiHost = (import.meta.env.PUBLIC_PLAUSIBLE_API_HOST || "https://
       <script
         defer
         data-domain={plausibleDomain}
-        src={`${plausibleApiHost}/js/script.js`}
+        data-api="/api/event"
+        src="/js/pl.js"
       ></script>
     </>
   )
