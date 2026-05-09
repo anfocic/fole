@@ -81,3 +81,12 @@ const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
     </>
   )
 }
+
+<script>
+  import { Analytics } from "pagetally";
+  new Analytics({
+    siteId: "fole",
+    endpoint: "https://analytics.fole.dev/collect",
+    respectDNT: true,
+  });
+</script>
