@@ -1,5 +1,6 @@
 interface Env {
     ANALYTICS_HOST?: string;
+    ANALYTICS_ADMIN_TOKEN?: string;
 }
 
 const DEFAULT_HOST = "https://analytics.fole.dev";
@@ -20,9 +21,15 @@ export const onRequestGet: PagesFunction<Env, "path"> = async ({request, params,
     const upstream = new URL(`${host}/stats/${leaf}`);
     incoming.searchParams.forEach((v, k) => upstream.searchParams.set(k, v));
 
+    const headers = new Headers();
+    if (env.ANALYTICS_ADMIN_TOKEN) {
+        headers.set("authorization", `Bearer ${env.ANALYTICS_ADMIN_TOKEN}`);
+    }
+
     try {
         const r = await fetch(upstream.toString(), {
             method: "GET",
+            headers,
             cf: {cacheTtl: 60, cacheEverything: false},
         });
         return new Response(r.body, {
