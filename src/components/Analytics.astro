@@ -1,5 +1,37 @@
 ---
-const enabled = import.meta.env.PUBLIC_ANALYTICS_ENABLED !== "false";
+import { ANALYTICS_EVENTS } from "../lib/analytics";
 ---
 
-{enabled && <script type="module" src="/scripts/analytics-init.js" is:inline />}
+<script>
+  import { Analytics } from "pagetally";
+  const analytics = new Analytics({
+    siteId: "fole",
+    endpoint: "https://analytics.fole.dev/collect",
+    respectDNT: true,
+  });
+  // Expose for inline scripts (PostAnalytics, link-click tracking) that
+  // can't import the npm package directly.
+  (window as unknown as { pagetally: typeof analytics }).pagetally = analytics;
+</script>
+
+<script is:inline define:vars={{ profileLinkClickEvent: ANALYTICS_EVENTS.profileLinkClick }}>
+  (() => {
+    const sendProfileLinkEvent = (anchor) => {
+      const link = anchor.dataset.analyticsLink;
+      const location = anchor.dataset.analyticsLocation;
+      const tally = window.pagetally;
+      if (!tally || !link || !location) return;
+      tally.track(profileLinkClickEvent, { link, location });
+    };
+
+    document.addEventListener("click", (event) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+
+      const anchor = target.closest("[data-analytics-link]");
+      if (!(anchor instanceof HTMLAnchorElement)) return;
+
+      sendProfileLinkEvent(anchor);
+    });
+  })();
+</script>

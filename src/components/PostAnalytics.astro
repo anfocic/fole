@@ -1,47 +1,54 @@
 ---
+import { ANALYTICS_EVENTS } from "../lib/analytics";
+
 interface Props {
   slug: string;
   readingTime: number;
 }
 
 const { slug, readingTime } = Astro.props;
-const analyticsEnabled = import.meta.env.PUBLIC_ANALYTICS_ENABLED !== "false";
 const engagedSeconds = Math.min(90, Math.max(15, readingTime * 10));
 const readSeconds = Math.min(180, Math.max(30, readingTime * 20));
 ---
 
-{
-  analyticsEnabled && (
-    <script
-      is:inline
-      define:vars={{
-        slug,
-        readingTime,
-        engagedSeconds,
-        readSeconds,
-      }}
-    >
-      (() => {
-        const article = document.querySelector("[data-post-content]");
-        if (!article) return;
+<script
+  is:inline
+  define:vars={{
+    slug,
+    readingTime,
+    engagedSeconds,
+    readSeconds,
+    blogPostEngagedEvent: ANALYTICS_EVENTS.blogPostEngaged,
+    blogPostReadEvent: ANALYTICS_EVENTS.blogPostRead,
+  }}
+>
+  (() => {
+    const article = document.querySelector("[data-post-content]");
+    if (!article) {
+      return;
+    }
 
-        let visibleMs = 0;
-        let maxProgress = 0;
-        let lastVisibleAt = document.visibilityState === "visible" ? Date.now() : null;
-        let engagedSent = false;
-        let readSent = false;
+    let visibleMs = 0;
+    let maxProgress = 0;
+    let lastVisibleAt = document.visibilityState === "visible" ? Date.now() : null;
+    let engagedSent = false;
+    let readSent = false;
 
-        const sendEvent = (name) => {
-          if (window.fole && typeof window.fole.track === "function") {
-            window.fole.track(name, {
-              slug,
-              reading_time_minutes: String(readingTime),
-            });
-          }
-        };
+    const sendEvent = (name) => {
+      const tally = window.pagetally;
+      if (tally && typeof tally.track === "function") {
+        tally.track(name, {
+          slug,
+          reading_time_minutes: String(readingTime),
+        });
+      }
+    };
 
         const captureVisibleTime = () => {
-          if (lastVisibleAt === null) return;
+          if (lastVisibleAt === null) {
+            return;
+          }
+
           const now = Date.now();
           visibleMs += now - lastVisibleAt;
           lastVisibleAt = now;
@@ -52,6 +59,7 @@ const readSeconds = Math.min(180, Math.max(30, readingTime * 20));
           const articleTop = rect.top + window.scrollY;
           const articleHeight = Math.max(article.scrollHeight, article.clientHeight, 1);
           const viewportBottom = window.scrollY + window.innerHeight;
+
           return Math.max(0, Math.min(1, (viewportBottom - articleTop) / articleHeight));
         };
 
@@ -61,12 +69,12 @@ const readSeconds = Math.min(180, Math.max(30, readingTime * 20));
 
           if (!engagedSent && visibleMs >= engagedSeconds * 1000 && maxProgress >= 0.5) {
             engagedSent = true;
-            sendEvent("blog_post_engaged");
+            sendEvent(blogPostEngagedEvent);
           }
 
           if (!readSent && visibleMs >= readSeconds * 1000 && maxProgress >= 0.9) {
             readSent = true;
-            sendEvent("blog_post_read");
+            sendEvent(blogPostReadEvent);
             cleanup();
           }
         };
@@ -83,6 +91,7 @@ const readSeconds = Math.min(180, Math.max(30, readingTime * 20));
             maybeTrack();
             return;
           }
+
           lastVisibleAt = Date.now();
         };
 
@@ -104,8 +113,6 @@ const readSeconds = Math.min(180, Math.max(30, readingTime * 20));
         window.addEventListener("pagehide", onPageHide);
         document.addEventListener("visibilitychange", onVisibilityChange);
 
-        maybeTrack();
-      })();
-    </script>
-  )
-}
+    maybeTrack();
+  })();
+</script>

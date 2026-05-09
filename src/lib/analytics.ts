@@ -1,7 +1,7 @@
 export const ANALYTICS_EVENTS = {
-  blogPostEngaged: "blog_post_engaged",
-  blogPostRead: "blog_post_read",
-  profileLinkClick: "profile_link_click",
+  blogPostEngaged: "Blog Post Engaged",
+  blogPostRead: "Blog Post Read",
+  profileLinkClick: "Profile Link Click",
 } as const;
 
 export const ANALYTICS_EVENT_SPEC = {

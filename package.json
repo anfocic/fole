@@ -3,16 +3,13 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "sync:pagetally": "cp node_modules/pagetally/dist/index.js public/scripts/pagetally.js",
-    "predev": "npm run sync:pagetally",
-    "prebuild": "npm run sync:pagetally",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
     "new-post": "node scripts/new-post.mjs",
     "publish": "node scripts/publish-post.mjs",
-    "deploy": "node --env-file=.env scripts/check-env.mjs && astro build && wrangler pages deploy dist"
+    "deploy": "astro build && wrangler pages deploy dist"
   },
   "dependencies": {
     "@iconify-json/simple-icons": "^1.2.76",
