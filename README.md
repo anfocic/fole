@@ -16,4 +16,4 @@ Notes on what I'm building, mostly around agents, LLMs, and full-stack engineeri
 
 ---
 
-Analytics via Plausible (no cookies, no cross-site IDs).
+Analytics via [pagetally](https://www.npmjs.com/package/pagetally) (no cookies, no cross-site IDs).
