@@ -3,6 +3,9 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "sync:pagetally": "cp node_modules/pagetally/dist/index.js public/scripts/pagetally.js",
+    "predev": "npm run sync:pagetally",
+    "prebuild": "npm run sync:pagetally",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
