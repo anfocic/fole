@@ -6,7 +6,7 @@ export const ANALYTICS_EVENTS = {
 
 export const ANALYTICS_EVENT_SPEC = {
   pageview: {
-    source: "Plausible default pageview",
+    source: "pagetally auto pageview",
     props: [],
   },
   blogPostEngaged: {
