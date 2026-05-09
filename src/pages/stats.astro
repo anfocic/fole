@@ -1,0 +1,329 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const siteId = "fole";
+---
+
+<BaseLayout title="stats — fole.dev" description="fole.dev traffic and web vitals">
+  <Fragment slot="head">
+    <meta name="robots" content="noindex, nofollow" />
+  </Fragment>
+
+  <section class="stats" data-site={siteId}>
+    <header class="stats__head">
+      <div>
+        <h1 class="stats__title">stats</h1>
+        <p class="stats__sub">
+          site: <strong>{siteId}</strong> · powered by
+          <a href="https://github.com/anfocic/pagetally" rel="noopener">pagetally</a>
+        </p>
+      </div>
+      <div class="stats__controls">
+        <div class="stats__range" role="tablist" aria-label="Range">
+          <button data-days="7" type="button">7d</button>
+          <button data-days="30" type="button" aria-pressed="true">30d</button>
+          <button data-days="90" type="button">90d</button>
+        </div>
+        <button class="stats__refresh" type="button" aria-label="Refresh" data-action="refresh">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12a9 9 0 1 1-3.5-7.1"/>
+            <path d="M21 4v5h-5"/>
+          </svg>
+        </button>
+        <span class="stats__updated" data-updated>—</span>
+      </div>
+    </header>
+
+    <div class="stats__kpis">
+      <article class="kpi"><span class="kpi__label">pageviews</span><span class="kpi__val" data-kpi="pageviews">—</span></article>
+      <article class="kpi"><span class="kpi__label">events</span><span class="kpi__val" data-kpi="events">—</span></article>
+      <article class="kpi"><span class="kpi__label">top page</span><span class="kpi__val kpi__val--text" data-kpi="topPath">—</span></article>
+    </div>
+
+    <section class="stats__chart panel-soft">
+      <h2 class="stats__h2">pageviews over time</h2>
+      <svg class="chart" viewBox="0 0 800 220" preserveAspectRatio="xMidYMid meet" aria-label="Pageviews timeseries"></svg>
+    </section>
+
+    <section class="stats__grid">
+      <section class="panel">
+        <h2 class="stats__h2">top pages</h2>
+        <ol class="ranks" data-top="path"></ol>
+      </section>
+      <section class="panel">
+        <h2 class="stats__h2">top referrers</h2>
+        <ol class="ranks" data-top="referrer"></ol>
+      </section>
+      <section class="panel">
+        <h2 class="stats__h2">top countries</h2>
+        <ol class="ranks" data-top="country"></ol>
+      </section>
+      <section class="panel">
+        <h2 class="stats__h2">devices</h2>
+        <ol class="ranks" data-top="device"></ol>
+      </section>
+    </section>
+
+    <section class="stats__vitals">
+      <h2 class="stats__h2">core web vitals (p75)</h2>
+      <div class="vitals">
+        <article class="vital"><span class="vital__label">LCP</span><span class="vital__val" data-vital="lcpP75">—</span><span class="vital__unit">ms</span></article>
+        <article class="vital"><span class="vital__label">FCP</span><span class="vital__val" data-vital="fcpP75">—</span><span class="vital__unit">ms</span></article>
+        <article class="vital"><span class="vital__label">CLS</span><span class="vital__val" data-vital="clsP75">—</span><span class="vital__unit"></span></article>
+        <article class="vital"><span class="vital__label">INP</span><span class="vital__val" data-vital="inpP75">—</span><span class="vital__unit">ms</span></article>
+        <article class="vital"><span class="vital__label">TTFB</span><span class="vital__val" data-vital="ttfbP75">—</span><span class="vital__unit">ms</span></article>
+      </div>
+    </section>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  .stats {
+    display: grid;
+    gap: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  .stats__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+  }
+
+  .stats__title {
+    font-size: 2.25rem;
+    margin: 0;
+    letter-spacing: -0.04em;
+  }
+
+  .stats__sub {
+    margin: 0.4rem 0 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+  }
+  .stats__sub a { color: var(--link); text-decoration: none; }
+  .stats__sub a:hover { text-decoration: underline; }
+
+  .stats__controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+  .stats__refresh {
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 120ms, border-color 120ms, transform 240ms;
+  }
+  .stats__refresh:hover { color: var(--text); border-color: var(--text-secondary); }
+  .stats__refresh.is-loading svg { animation: spin 600ms linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .stats__updated {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+  }
+  .stats__range {
+    display: inline-flex;
+    gap: 2px;
+    background: var(--bg-secondary);
+    padding: 3px;
+    border-radius: 999px;
+  }
+  .stats__range button {
+    background: transparent;
+    border: 0;
+    color: var(--text-secondary);
+    font: inherit;
+    font-size: 0.85rem;
+    padding: 0.35rem 0.85rem;
+    cursor: pointer;
+    border-radius: 999px;
+    transition: background 120ms, color 120ms;
+  }
+  .stats__range button:hover { color: var(--text); }
+  .stats__range button[aria-pressed="true"] {
+    background: var(--bg);
+    color: var(--text);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  }
+
+  .stats__h2 {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-secondary);
+    margin: 0 0 0.85rem;
+    font-weight: 600;
+  }
+
+  .stats__kpis {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    background: var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  @media (max-width: 720px) {
+    .stats__kpis { grid-template-columns: 1fr; gap: 1px; }
+  }
+  .kpi {
+    background: var(--bg-secondary);
+    padding: 1.1rem 1.4rem;
+    display: grid;
+    gap: 0.4rem;
+    align-content: start;
+  }
+  .kpi__label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+  .kpi__val {
+    font-size: 1.6rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+  .kpi__val--text {
+    font-size: 1rem;
+    font-weight: 500;
+    font-variant-numeric: normal;
+    word-break: break-all;
+    color: var(--text-secondary);
+  }
+
+  .panel-soft {
+    background: var(--bg-secondary);
+    border-radius: 8px;
+    padding: 1.25rem;
+  }
+  .stats__chart .chart {
+    width: 100%;
+    height: 220px;
+    display: block;
+  }
+  .chart rect.bar { fill: var(--text); opacity: 0.78; transition: opacity 120ms, fill 120ms; }
+  .chart rect.bar:hover { opacity: 1; fill: var(--link); }
+  .chart line.axis { stroke: var(--border); stroke-width: 1; stroke-dasharray: 2 3; }
+  .chart text.tick { fill: var(--text-secondary); font-size: 11px; font-family: var(--font-sans); }
+
+  .stats__grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  @media (max-width: 720px) {
+    .stats__grid { grid-template-columns: 1fr; }
+  }
+  .panel { padding: 0; }
+  .ranks {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 2px;
+  }
+  .ranks li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 0.6rem;
+    padding: 0.45rem 0.6rem;
+    font-variant-numeric: tabular-nums;
+    font-size: 0.9rem;
+    border-radius: 4px;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .ranks li::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--w, 0%);
+    background: var(--bg-secondary);
+    z-index: -1;
+    transition: width 240ms ease-out;
+  }
+  .ranks .key {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--text);
+    padding-right: 0.85rem;
+  }
+  .ranks .count {
+    color: var(--text);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    min-width: 2.5ch;
+    text-align: right;
+  }
+
+  .vitals {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.6rem;
+  }
+  @media (max-width: 720px) {
+    .vitals { grid-template-columns: repeat(2, 1fr); }
+  }
+  .vital {
+    padding: 0.85rem;
+    display: grid;
+    gap: 0.25rem;
+    background: var(--bg-secondary);
+    border-radius: 6px;
+    position: relative;
+  }
+  .vital::before {
+    content: "";
+    position: absolute;
+    top: 0.85rem;
+    right: 0.85rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--text-secondary);
+  }
+  .vital__label {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    font-weight: 600;
+  }
+  .vital__val {
+    font-size: 1.3rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+  .vital__unit {
+    font-size: 0.7rem;
+    color: var(--text-secondary);
+  }
+  .vital--good::before { background: var(--win); }
+  .vital--needs::before { background: var(--link); }
+  .vital--poor::before { background: var(--lose); }
+</style>
+
+<script src="/scripts/stats.js" defer></script>

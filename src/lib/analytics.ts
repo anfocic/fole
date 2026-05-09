@@ -1,12 +1,12 @@
 export const ANALYTICS_EVENTS = {
-  blogPostEngaged: "Blog Post Engaged",
-  blogPostRead: "Blog Post Read",
-  profileLinkClick: "Profile Link Click",
+  blogPostEngaged: "blog_post_engaged",
+  blogPostRead: "blog_post_read",
+  profileLinkClick: "profile_link_click",
 } as const;
 
 export const ANALYTICS_EVENT_SPEC = {
   pageview: {
-    source: "Plausible default pageview",
+    source: "pagetally auto pageview",
     props: [],
   },
   blogPostEngaged: {

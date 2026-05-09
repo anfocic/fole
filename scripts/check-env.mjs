@@ -1,6 +1,4 @@
-const required = [
-  "PUBLIC_PLAUSIBLE_DOMAIN",
-];
+const required = [];
 
 const missing = required.filter((k) => !process.env[k]);
 
