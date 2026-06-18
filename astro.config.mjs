@@ -8,4 +8,7 @@ const site = process.env.SITE_URL ?? "https://fole.dev";
 export default defineConfig({
   site,
   integrations: [icon()],
+  build: {
+    inlineStylesheets: "always",
+  },
 });
