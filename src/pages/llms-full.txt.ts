@@ -29,7 +29,7 @@ ${post.body ?? ""}`;
   const body = `# Andrej Focic — Full Blog Content
 
 This file contains the full text of all published blog posts on fole.dev.
-For a summary, see: https://fole.dev/llms.txt
+For a summary, see [llms.txt](https://fole.dev/llms.txt).
 
 ${sections || "No published posts yet."}
 `;
