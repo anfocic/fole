@@ -24,7 +24,7 @@ export const GET: APIRoute = async ({ site }) => {
 - Site: https://fole.dev
 
 ## Focus
-Solo founder building intrebit. Full-stack product development from database to deploy. Currently exploring agentic engineering, LLM tooling, and AI-assisted development workflows.
+Founder and full-stack engineer building intrebit. Product development from database to deploy. Currently exploring agentic engineering, LLM tooling, and AI-assisted development workflows.
 
 ## Blog Posts
 ${postLines || "No published posts yet."}

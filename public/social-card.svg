@@ -10,5 +10,5 @@
   <rect width="1200" height="630" fill="url(#bg)" />
   <text x="100" y="200" fill="#9aa1b3" font-size="32" font-family="SF Mono, Menlo, Monaco, Consolas, monospace">fole.dev</text>
   <text x="100" y="310" fill="#e2e6ef" font-size="80" font-weight="700" font-family="system-ui, -apple-system, sans-serif">Andrej Focic</text>
-  <text x="100" y="390" fill="#9aa1b3" font-size="36" font-family="system-ui, -apple-system, sans-serif">Solo founder, full-stack everything.</text>
+  <text x="100" y="390" fill="#9aa1b3" font-size="36" font-family="system-ui, -apple-system, sans-serif">Full-stack engineer, founder of intrebit.</text>
 </svg>
