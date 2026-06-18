@@ -1,16 +1,21 @@
 ---
+import { Picture } from "astro:assets";
 import SocialLinks from "./SocialLinks.astro";
 import { heroSocialLinkIds } from "../data/social-links";
+import portrait from "../assets/andrej.jpg";
 ---
 
 <section class="hero">
   <div class="portrait-wrap">
-    <img
+    <Picture
       class="portrait"
-      src="/andrej.jpg"
+      src={portrait}
+      formats={["avif", "webp"]}
       alt="Andrej Focic"
-      width="280"
-      height="280"
+      width={280}
+      densities={[1, 2]}
+      loading="eager"
+      fetchpriority="high"
     />
   </div>
   <div class="copy">
